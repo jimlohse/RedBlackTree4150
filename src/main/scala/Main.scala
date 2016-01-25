@@ -3,34 +3,35 @@
   */
 
 import com.google.common.base.Stopwatch
-import com.typesafe.scalalogging.slf4j._
+import com.typesafe.scalalogging.slf4j.Logger
 import scala.collection.immutable.TreeMap
 import java.util.concurrent.TimeUnit
 
-object RedBlackTree4150 extends App {
-  // val rbtree = new RedBlackTree4150()
+class Main extends App {
+
+  var loggerInst = new Logger()
+  var stopWatchInst = new Stopwatch()
+
+  //var rbtree = new RedBlackTree4150(logger, stopWatch)
+
 // }
 
-// class RedBlackTree4150 {
+// class RedBlackTree4150 (logger:Logger, stopWatch:Stopwatch) {
+// class RedBlackTree4150 (var loggerInst: Logger, var stopWatchInst: Stopwatch) {
 
-  // create an array of the powers of 2 we want to test
-  //val powersList = List(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
   val powersList = List(10 to 20)
 
   // create a map to keep track of power of two and resulting timings
   var timingsMap:Map[Integer, Double] = Map()
 
-  // setup logging
-  var logger = new Logger
+  loggerInst.info("Starting program run...")
 
-  logger.info("Starting program run...")
-
-  logger.info("To avoid cold start, creating two trees with 2^10 and 2^11 entries...")
+  loggerInst.info("To avoid cold start, creating two trees with 2^10 and 2^11 entries...")
 
   val singleRunTime = runTest(10 to 11)
 
-  logger.info("That warm up of runTest with 2^10 and 2^11 took " + singleRunTime + " ms")
-  logger.info("Now for the real test!\n\n")
+  loggerInst.info("That warm up of runTest with 2^10 and 2^11 took " + singleRunTime + " ms")
+  loggerInst.info("Now for the real test!\n\n")
 
   // call the runTest function once for each power of two we want, from powersList,
   // assign timingsMap the power of 2 value and results of runTest for that tree size
@@ -54,9 +55,7 @@ object RedBlackTree4150 extends App {
       tree += (x -> math.random)
     }
 
-    // setup timing
-    val stopWatch = new Stopwatch()
-    stopWatch.start()
+    stopWatchInst.start()
 
     // now go through and look up all the values in the tree,
     for (x <- powerOfTwo){
@@ -64,15 +63,11 @@ object RedBlackTree4150 extends App {
       tree.get(x)
     }
 
-    stopWatch.stop()
-
-    val totalTime = stopWatch.elapsed(TimeUnit.MILLISECONDS)
-
-    logger.info("run for 2 to the power of " + powerOfTwo + " took " + totalTime + " ms")
-
-
-
-    return 0.0
+    // stop watch check time report and return time
+    stopWatchInst.stop()
+    val totalTime = stopWatchInst.elapsed(TimeUnit.MILLISECONDS)
+    loggerInst.info("run for 2 to the power of " + powerOfTwo + " took " + totalTime + " ms")
+    return totalTime
   }
 
 
