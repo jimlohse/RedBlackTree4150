@@ -13,7 +13,7 @@ object Main extends App {
 }
 
 // class RedBlackTree4150 (var loggerInst: Logger, var stopWatchInst: Stopwatch) {
-class RedBlackTree4150() {
+class RedBlackTree4150 {
   var loggerInst = new Logger()
   var stopWatchInst = new Stopwatch()
 
@@ -40,7 +40,7 @@ class RedBlackTree4150() {
   println("---------------------")
   timingsMap foreach ((timingStat) => println(timingStat._1 + "           | " + timingStat._2))
 
-  // function takes an integer param, builts a tree and populates it with that size
+  // function takes an Range param, builts a tree and populates it with that size
   // then reads each element
   def runTest(powerOfTwo: Range): Double = {
 
