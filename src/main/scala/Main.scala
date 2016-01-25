@@ -7,22 +7,20 @@ import com.typesafe.scalalogging.slf4j.Logger
 import scala.collection.immutable.TreeMap
 import java.util.concurrent.TimeUnit
 
-class Main extends App {
+object Main extends App {
+  // var rbtree = new RedBlackTree4150(logger, stopWatch)
+  var rbtree = new RedBlackTree4150()
+}
 
+// class RedBlackTree4150 (var loggerInst: Logger, var stopWatchInst: Stopwatch) {
+class RedBlackTree4150() {
   var loggerInst = new Logger()
   var stopWatchInst = new Stopwatch()
-
-  //var rbtree = new RedBlackTree4150(logger, stopWatch)
-
-// }
-
-// class RedBlackTree4150 (logger:Logger, stopWatch:Stopwatch) {
-// class RedBlackTree4150 (var loggerInst: Logger, var stopWatchInst: Stopwatch) {
 
   val powersList = List(10 to 20)
 
   // create a map to keep track of power of two and resulting timings
-  var timingsMap:Map[Integer, Double] = Map()
+  var timingsMap: Map[Integer, Double] = Map()
 
   loggerInst.info("Starting program run...")
 
@@ -35,7 +33,7 @@ class Main extends App {
 
   // call the runTest function once for each power of two we want, from powersList,
   // assign timingsMap the power of 2 value and results of runTest for that tree size
-  timingsMap = for ( i <- powersList; j <- runTest(i)) yield  i -> j
+  timingsMap = for (i <- powersList; j <- runTest(i)) yield i -> j
 
   // now iterate through timingsMap to create a table of values
   println("power of two | timing")
@@ -50,7 +48,7 @@ class Main extends App {
     var tree = new TreeMap[Int, Double]
 
     // we only care to create a tree with integer keys, not what the value is
-    for (x <- powerOfTwo){
+    for (x <- powerOfTwo) {
       // set next entry in map to key, random number
       tree += (x -> math.random)
     }
@@ -58,7 +56,7 @@ class Main extends App {
     stopWatchInst.start()
 
     // now go through and look up all the values in the tree,
-    for (x <- powerOfTwo){
+    for (x <- powerOfTwo) {
       // get the value, don't take the time/overhead to store it in a var, as we don't need it
       tree.get(x)
     }
@@ -69,8 +67,6 @@ class Main extends App {
     loggerInst.info("run for 2 to the power of " + powerOfTwo + " took " + totalTime + " ms")
     return totalTime
   }
-
-
 
 
 }
