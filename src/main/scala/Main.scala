@@ -33,7 +33,13 @@ class RedBlackTree4150 {
 
   // call the runTest function once for each power of two we want, from powersList,
   // assign timingsMap the power of 2 value and results of runTest for that tree size
-  timingsMap = for (i <- powersList; j <- runTest(i)) yield i -> j
+  // timingsMap = for (i <- powersList; j <- runTest(i)) yield i -> j
+  //timingsMap = for (i <- powersList) yield i -> runTest(i)
+
+  powersList.map { i =>
+    val j = runTest(i)
+    i -> j
+  }
 
   // now iterate through timingsMap to create a table of values
   println("power of two | timing")
